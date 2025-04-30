@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
 {
+    \Illuminate\Support\Facades\Artisan::call('migrate', ["--force" => true]);
     try {
         View::share('costumes', Costume::all());
     } catch (\Exception $e) {
@@ -27,5 +28,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('costumes', []);
     }
 }
+
+    
 
 }

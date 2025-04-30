@@ -20,6 +20,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
 {
-    View::share('costumes', Costume::all());
+    try {
+        View::share('costumes', Costume::all());
+    } catch (\Exception $e) {
+        // Prevent crash during deployment
+        View::share('costumes', []);
+    }
 }
+
 }

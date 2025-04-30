@@ -21,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
 {
     try {
+        Artisan::call('migrate', ['--force' => true]);
+    } catch (\Exception $e) {
+        \Log::error('Migration failed: ' . $e->getMessage());
+    }
+    try {
         View::share('costumes', Costume::all());
     } catch (\Exception $e) {
         // Prevent crash during deployment

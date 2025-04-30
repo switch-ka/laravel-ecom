@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Costume;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,9 +25,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
 {
     try {
+        DB::connection()->getPdo();
+        Log::info('✅ Database connection successful.');
+
         Artisan::call('migrate', ['--force' => true]);
+        Log::info('✅ Migration executed.');
     } catch (\Exception $e) {
-        \Log::error('Migration failed: ' . $e->getMessage());
+        Log::error('❌ Migration or DB connection failed: ' . $e->getMessage());
     }
     try {
         View::share('costumes', Costume::all());

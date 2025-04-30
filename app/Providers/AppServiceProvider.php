@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Costume;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Artisan;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
